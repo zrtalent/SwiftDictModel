@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Model: NSObject{
+class Model: NSObject, DictModelProtocol{
     var str1: String?
     var str2: NSString?
     var b: Bool = true
@@ -20,6 +20,9 @@ class Model: NSObject{
     var other: [Info]?
     var others: NSArray?
     
+    static func customClassMapping() -> [String: String]? {
+        return ["info": "Info", "other": "Info", "others": "Info"]
+    }
 }
 
 class SubModel: Model {

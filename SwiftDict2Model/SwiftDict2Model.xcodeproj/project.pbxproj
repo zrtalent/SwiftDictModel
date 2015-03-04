@@ -84,11 +84,11 @@
 			isa = PBXGroup;
 			children = (
 				3B76905A1AA6AB9800409991 /* DataFile */,
-				3B76905D1AA6ABB200409991 /* AppDelegate.swift */,
 				3B76905F1AA6ABC700409991 /* Model.swift */,
 				3B7690611AA6ABCB00409991 /* SwiftDictModel.swift */,
 				3B7690651AA6ABF400409991 /* ViewController.swift */,
 				3B7690631AA6ABD000409991 /* Main.storyboard */,
+				3B76905D1AA6ABB200409991 /* AppDelegate.swift */,
 				3B76903F1AA6AB5900409991 /* Images.xcassets */,
 				3B7690411AA6AB5900409991 /* LaunchScreen.xib */,
 				3B7690361AA6AB5900409991 /* Supporting Files */,
@@ -424,6 +424,7 @@
 				3B7690541AA6AB5900409991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3B7690551AA6AB5900409991 /* Build configuration list for PBXNativeTarget "SwiftDict2ModelTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +433,7 @@
 				3B7690571AA6AB5900409991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
