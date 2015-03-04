@@ -40,7 +40,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SwiftDictModel().modelInfo(Model.self)
+//        println(SwiftDictModel().modelInfo(SubModel.self))
+        SwiftDictModel().fullModelInfo(SubModel.self)
     }
     
     func loadJSON() -> NSDictionary {

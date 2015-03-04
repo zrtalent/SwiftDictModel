@@ -17,33 +17,54 @@ import Foundation
 }
 
 class SwiftDictModel {
-    // 判断类是否遵守了协议，一旦遵守协议，就说明有自定义对象
-    func modelInfo(cls: AnyClass) {
-        var mapping: [String: String]?
-        if cls.respondsToSelector("customClassMapping") {
-            mapping = cls.customClassMapping()
+    
+    func fullModelInfo(cls: AnyClass) {
+        var currentCls: AnyClass = cls
+        while let parent: AnyClass = currentCls.superclass() {
+            println(modelInfo(currentCls))
             
+            currentCls = parent
         }
         
         
+    }
+    
+    // 判断类是否遵守了协议，一旦遵守协议，就说明有自定义对象
+    func modelInfo(cls: AnyClass) -> [String: String] {
+        var mapping: [String: String]?
+        if cls.respondsToSelector("customClassMapping") {
+            mapping = cls.customClassMapping()
+        }
+        
         var count: UInt32 = 0
         let ivars = class_copyIvarList(cls, &count)
+        var dictInfo = [String: String]()
         // 遍历ivars数组，
         for i in 0..<count {
             let ivar = ivars[Int(i)]
             // UInt8 = char,获取变量名
             let cname = ivar_getName(ivar)
-            let name = String.fromCString(cname)
+            let name = String.fromCString(cname)!
             
+            // 关于对象的类型
+            // 如果是系统的类型：可以通过 KVC 直接设置数值
+            // 只有自定义对象，才需要做后续复杂的操作
+            // 只需要记录住自定义对象的类型即可
+//            var type = ""
+//            if mapping?[name] != nil {
+//                type = mapping![name]!
+//            }
+            let type = mapping?[name] ?? "" // Swift特有写法
+            dictInfo[name] = type
             
-            // 获取变量类型
-            let ctype = ivar_getTypeEncoding(ivar)
-            let type = String.fromCString(ctype)
-            println("->\(name)-->\(type)")
+//            // 获取变量类型
+//            let ctype = ivar_getTypeEncoding(ivar)
+//            let type = String.fromCString(ctype)
+//            println("->\(name)-->\(type)")
         }
         
         free(ivars)
-        
+        return dictInfo
     }
     
     func loadProperties(cls: AnyClass) {
@@ -95,6 +116,23 @@ class SwiftDictModel {
     
     
 }
+
+///  extension 类似于 OC 的分类，给类/对象添加方法
+extension Dictionary {
+    // 此方法为一个对象方法，所以是使一个字典添加另外一个字典的遍历元素将其拼接到现有的字典后面
+    ///  将给定的字典（可变的）合并到当前字典
+    ///  mutating 表示函数操作的字典是可变类型的
+    ///  泛型(随便一个类型)，封装一些函数或者方法，更加具有弹性
+    ///  任何两个 [key: value] 类型匹配的字典，都可以进行合并操作
+    mutating func merge<K, V>(dict: [K: V]) {
+        for (k, v) in dict {
+            self.updateValue(v as! Value, forKey: k as! Key)
+        }
+    }
+}
+
+
+
 
 
 
