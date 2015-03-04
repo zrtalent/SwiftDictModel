@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 Tarol. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class Model: NSObject, DictModelProtocol{
+class Model: NSObject, DictModelProtocol {
     var str1: String?
     var str2: NSString?
     var b: Bool = true
@@ -19,12 +19,12 @@ class Model: NSObject, DictModelProtocol{
     var info: Info?
     var other: [Info]?
     var others: NSArray?
+    var demo: NSArray?
     
-    static func customClassMapping() -> [String: String]? {
-        return ["info": "Info", "other": "Info", "others": "Info"]
+    static func customeClassMapping() -> [String : String]? {
+        return ["info": "\(Info.self)", "other": "\(Info.self)", "others": "\(Info.self)", "demo": "\(Info.self)"];
     }
 }
-
 class SubModel: Model {
     var boy: String?
 }
